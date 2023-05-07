@@ -41,7 +41,6 @@ const ServerPageExample = async () => {
   const repos = await getResponseExample();
 
   const { owner } = repos[0];
-  console.log(repos[2]);
 
   return (
     <div>
@@ -52,9 +51,11 @@ const ServerPageExample = async () => {
       </h3>
       <AvatarData {...owner} />
       <Suspense fallback={<div>Loading...</div>}>
+				{/* @ts-expect-error Server Component */}
         <ServerComponentExample name={repos[0].name} delay={0} />
       </Suspense>
       <Suspense fallback={<div>Loading...</div>}>
+				{/* @ts-expect-error Server Component */}
         <ServerComponentExample name={repos[0].name} delay={1000} />
       </Suspense>
     </div>
