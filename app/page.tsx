@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Particles from "./components/particles";
+import Image from "next/image";
 
 const navigation = [
 	{ name: "Projects", href: "/projects" },
@@ -12,6 +13,15 @@ export default function Home() {
 		<div className="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
 			<nav className="my-16 animate-fade-in">
 				<ul className="flex items-center justify-center gap-4">
+				<Link
+
+							href={'/'}
+							className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+						>
+					<Image alt='animated popcorn gif' src="/popcorn_animate.gif" width={40} height={40}
+  /> 
+	</Link>
+					
 					{navigation.map((item) => (
 						<Link
 							key={item.href}
@@ -28,14 +38,14 @@ export default function Home() {
 				className="absolute inset-0 -z-10 animate-fade-in"
 				quantity={100}
 			/>
-			<h1 className="z-10 py-4 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text">
-				movie night 🍿
+			<h1 className="z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text">
+				movie night
 			</h1>
 
 			<div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
 			<div className="my-16 text-center animate-fade-in">
 				<h2 className="text-sm text-zinc-500 ">
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex doloribus quas quisquam recusandae labore mollitia laudantium repellendus inventore quod in.
+A platform to track movies you&apos;ve watched and want to watch.
 				</h2>
 			</div>
 		</div>
