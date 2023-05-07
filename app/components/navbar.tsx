@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { SignInButton, UserButton, currentUser } from '@clerk/nextjs';
 
 const navigation = [
   { name: 'Movies', href: '/movies' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Login', href: '/login' },
 ];
-const Navbar = () => {
+
+const Navbar = async () => {
+  const userData = await currentUser();
+
   return (
     <nav className="my-16 animate-fade-in">
       <ul className="flex items-center justify-center gap-4">
@@ -31,6 +34,15 @@ const Navbar = () => {
             {item.name}
           </Link>
         ))}
+        {userData ? (
+          <UserButton />
+        ) : (
+          <SignInButton afterSignInUrl={'/movies'} afterSignUpUrl="movies">
+            <button className="text-sm duration-500 text-zinc-500 hover:text-zinc-300">
+              Login
+            </button>
+          </SignInButton>
+        )}
       </ul>
     </nav>
   );

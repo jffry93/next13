@@ -1,7 +1,5 @@
+import { SignUpButton, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
-import React from 'react';
-import Particles from './components/particles';
-import Image from 'next/image';
 
 const navigation = [
   { name: 'Projects', href: '/projects' },
@@ -23,13 +21,14 @@ export default function Home() {
             A platform to track movies you&apos;ve watched and want to watch.
           </h2>
         </div>
-        <Link
-          href="/signup"
-          className="text-sm text-transparent text-zinc-300 from-cyan-400 hover:text-transparent hover:bg-gradient-to-r from-indigo-500 to-blue-400 bg-clip-text"
-          data-text="Create an account"
-        >
-          Create an account
-        </Link>
+        <SignUpButton afterSignInUrl={'/movies'} afterSignUpUrl="movies">
+          <button
+            className="text-sm text-transparent text-zinc-300 hover-brand-gradient bg-clip-text"
+            data-text="Create an account"
+          >
+            Create an account
+          </button>
+        </SignUpButton>
       </div>
     </>
   );

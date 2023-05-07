@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.17.1",
+    "@prisma/client": "^4.13.0",
     "@tailwindcss/typography": "^0.5.9",
-    "@types/node": "20.1.0",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@vercel/analytics": "^1.0.1",
@@ -23,7 +23,25 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
-    "tailwindcss-debug-screens": "^2.2.1",
-    "typescript": "5.0.4"
-  }
+    "tailwindcss-debug-screens": "^2.2.1"
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "devDependencies": {
+    "@types/node": "^20.1.0",
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jffry93/next13.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jffry93/next13/issues"
+  },
+  "homepage": "https://github.com/jffry93/next13#readme"
 }

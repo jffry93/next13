@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id     String  @id @default(uuid())
+  email  String  @unique
+  movies Movie[]
+
+  @@index([email])
+}
+
+model Movie {
+  id        Int      @id @default(autoincrement())
+  imoID     String
+  title     String
+  img_path  String
+  watchlist Boolean  @default(false)
+  recommend Boolean  @default(false)
+  completed Boolean  @default(false)
+  rating    Int      @default(0)
+  comment   String?
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  @@unique([imoID, userId]) // can only have the movie appear once per user
+  @@index([id])
+  @@index([userId])
+}
