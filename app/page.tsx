@@ -1,10 +1,5 @@
-import { SignUpButton, UserButton } from '@clerk/nextjs';
-import Link from 'next/link';
+import { SignUpButton } from '@clerk/nextjs';
 
-const navigation = [
-  { name: 'Projects', href: '/projects' },
-  { name: 'Contact', href: '/contact' },
-];
 
 export default function Home() {
   return (
