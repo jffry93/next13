@@ -1,3 +1,5 @@
+import Primewire from '@/app/components/primewire';
+
 interface PropType {
   params: {
     slug: string;
@@ -32,6 +34,8 @@ export default async function Page(props: PropType) {
   return (
     <main>
       <h1 className="text-gray-500">{data.title}</h1>
+      {/* @ts-expect-error Server Component */}
+      <Primewire title={data.title} />
     </main>
   );
 }
