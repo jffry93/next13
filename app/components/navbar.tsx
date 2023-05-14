@@ -11,7 +11,7 @@ const Navbar = async () => {
   const userData = await currentUser();
 
   return (
-    <nav className="my-16 animate-fade-in">
+    <nav className="mt-16 animate-fade-in">
       <ul className="flex items-center justify-center gap-4">
         <Link
           href={'/'}

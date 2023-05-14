@@ -1,15 +1,25 @@
 'use client';
 
 import { useDebounceCallback } from '@/utils/debounce';
+import { useState } from 'react';
+
+interface Movies {
+  title: string;
+  id: string;
+  poster_path: string;
+}
+[];
 
 const Searchbar = () => {
+  const [movies, setMovies] = useState<Movies[] | null>(null);
   const searchMovies = async (e: { target: { value: string } }) => {
-    const data = await fetch(`/api/movies?title=${e.target.value}`);
-    const json = await data.json();
+    const data = await fetch(`/api/imdb/movies?title=${e.target.value}`);
+    const json: Movies[] = await data.json();
+    setMovies(json);
   };
   const debounceMovieSearch = useDebounceCallback(searchMovies, 250);
   return (
-    <div className="relative w-full max-w-sm m-auto my-8 animate-fade-in">
+    <div className="relative w-full max-w-md m-auto my-8 animate-fade-in">
       <form>
         <label
           htmlFor="default-search"
@@ -45,23 +55,43 @@ const Searchbar = () => {
         </div>
       </form>
 
-      <div
-        className="absolute w-full mt-2 origin-top-right bg-gray-900 rounded-md z-1000"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-      >
-        <div className="py-1" role="none">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-300 "
-            role="menuitem"
-            id="menu-item-0"
-          >
-            Item Example
-          </a>
+      {movies && (
+        <div
+          className="relative w-full mt-2 origin-top-right bg-gray-900 rounded-md z-1000"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+        >
+          {movies &&
+            movies.map((movie, index) => {
+              if (index < 10)
+                return (
+                  <div key={movie.id} className="py-1" role="none">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-300 "
+                      role="menuitem"
+                      id="menu-item-0"
+                    >
+                      {movie.title}
+                    </a>
+                  </div>
+                );
+            })}
+          {movies.length > 10 && (
+            <div className="py-1" role="none">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-300 "
+                role="menuitem"
+                id="menu-item-0"
+              >
+                See more...
+              </a>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };
