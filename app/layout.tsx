@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import LocalFont from 'next/font/local';
+
 import React from 'react';
+import { Analytics } from './components/analytics';
 import Navbar from './components/navbar';
 import Particles from './components/particles';
-import './globals.css';
-import { Analytics } from './components/analytics';
 import { WithProviders } from './components/providers';
-import Searchbar from './components/searchbar';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: {
@@ -81,7 +81,6 @@ export default function RootLayout({
             <div className="flex flex-col items-center justify-center w-screen h-screen min-h-full overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
               {/* @ts-expect-error Server Component */}
               <Navbar />
-              {/* <Searchbar /> */}
               <Particles
                 className="absolute inset-0 -z-10 animate-fade-in"
                 quantity={100}
