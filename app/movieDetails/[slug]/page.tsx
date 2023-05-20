@@ -1,3 +1,4 @@
+import Actions from '@/app/components/actions';
 import Primewire from '@/app/components/primewire';
 
 interface PropType {
@@ -34,6 +35,7 @@ export default async function Page(props: PropType) {
   return (
     <main>
       <h1 className="text-gray-500">{data.title}</h1>
+      <Actions />
       {/* @ts-expect-error Server Component */}
       <Primewire title={data.title} />
     </main>
