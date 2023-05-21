@@ -12,11 +12,23 @@ datasource db {
 }
 
 model User {
-  id     String  @id @default(uuid())
-  email  String  @unique
-  movies Movie[]
+  id      String   @id @default(uuid())
+  email   String   @unique
+  Profile Profile?
+  movies  Movie[]
 
   @@index([email])
+}
+
+model Profile {
+  name      String
+  img_path  String
+  createdAt DateTime @default(now())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Movie {
