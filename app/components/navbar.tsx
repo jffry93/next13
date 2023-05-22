@@ -4,7 +4,7 @@ import { SignInButton, UserButton, currentUser } from '@clerk/nextjs';
 
 const navigation = [
   { name: 'Movies', href: '/movies' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'History', href: '/history' },
 ];
 
 const Navbar = async () => {
