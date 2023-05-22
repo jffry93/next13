@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
 import data from '../../data/index.json';
 
-const getPrimeWireLink = (title: string) => {
+const searchMoviesArray = (title: string) => {
   // Fuse.js options
   let options = {
     shouldSort: true,
@@ -23,7 +23,7 @@ export const constructMovieUrl = (id: number, title: string) => {
   return `https://primewire.mx/movie/watch-${formattedTitle}-online-${id}`;
 };
 
-export const searchMoviesArray = (searchString: string) => {
+export const getPrimeWireLink = (searchString: string) => {
   const lowerCaseSearchString = searchString
     .toLowerCase()
     .replace(/[^a-z0-9é ]/g, '')
@@ -38,7 +38,7 @@ export const searchMoviesArray = (searchString: string) => {
   }
 
   // If no exact match, get fuzzy matches
-  const fuzzyMatches = getPrimeWireLink(lowerCaseSearchString);
+  const fuzzyMatches = searchMoviesArray(lowerCaseSearchString);
 
   return fuzzyMatches.map((result) => result.item); // Map back to original object structure
 };

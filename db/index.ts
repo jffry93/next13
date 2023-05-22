@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { auth, currentUser } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs';
 
 //connect to the database
 export const prisma = new PrismaClient();
