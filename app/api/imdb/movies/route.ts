@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 
+// search for movies by title using the movie db api
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const title = searchParams.get('title');

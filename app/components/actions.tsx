@@ -20,17 +20,16 @@ const Actions = (props: {
         body: JSON.stringify({ type, movieData: props.movieData, status }),
       });
       const json: {} = await res.json();
-      console.log(json);
 
       setButtonActions((prevState) => ({
         ...prevState,
         ...json,
       }));
     },
-    []
+    [props.movieData]
   );
 
-  const debouncedHandleClickEvent = useDebounceCallback(handleClickEvent, 500);
+  const debouncedHandleClickEvent = useDebounceCallback(handleClickEvent, 150);
 
   return (
     <div className="flex gap-4 my-4 actions">

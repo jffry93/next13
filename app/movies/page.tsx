@@ -1,5 +1,3 @@
-import Searchbar from '../components/movies';
-
 const Movies = () => {
   return (
     <div className="flex flex-col items-center justify-center my-8">

@@ -24,8 +24,6 @@ export async function GET(req: Request) {
     return;
   }
 
-  console.log(title);
-
   const movies = searchMoviesArray(title, data);
   if (movies.length === 0) {
     return NextResponse.json('Movie not found');

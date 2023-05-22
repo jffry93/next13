@@ -6,7 +6,7 @@ import React from 'react';
 import { Analytics } from './components/analytics';
 import Navbar from './components/navbar';
 import Particles from './components/particles';
-import { WithProviders } from './components/providers';
+import ClerkProvider from './components/clerk';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -66,7 +66,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <WithProviders>
+      <ClerkProvider>
         <html
           lang="en"
           className={[inter.variable, calSans.variable].join(' ')}
@@ -89,7 +89,7 @@ export default function RootLayout({
             </div>
           </body>
         </html>
-      </WithProviders>
+      </ClerkProvider>
       <Analytics />
     </>
   );

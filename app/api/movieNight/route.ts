@@ -3,28 +3,13 @@ import { legitCheck, prisma } from '@/db';
 import { currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const type = searchParams.get('type');
-  if (typeof type !== 'string') {
-    return;
-  }
-  // await prisma.movie.upsert({
-  //   where: { title },
-  //   update: {},
-  //   create: { title, },
-  // });
-
-  prisma.$disconnect();
-
-  return NextResponse.json(type);
-}
 interface BodyType {
   type: 'recommend' | 'completed' | 'watchlist';
   movieData: MovieDetails;
   status: boolean;
 }
 
+// add or update movie on user's movie night list
 export async function POST(req: Request) {
   legitCheck();
   const body: BodyType = await req.json();
@@ -46,7 +31,7 @@ export async function POST(req: Request) {
       img_path: movieData.poster_path,
     },
   });
-  // await prisma.movie.deleteMany();
+  prisma.$disconnect();
 
   return NextResponse.json({ [type]: !status });
 }
