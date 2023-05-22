@@ -2,15 +2,13 @@
 import { useDebounceCallback } from '@/utils/debounce';
 import { useCallback, useState } from 'react';
 import type { MovieDetails } from '../movieDetails/[slug]/page';
+import type { MovieOpinions } from '@/db/helpers/getUsersOpinion';
 
-const tempActions = {
-  recommend: false,
-  watchlist: false,
-  completed: false,
-};
-
-const Actions = (props: { movieData: MovieDetails }) => {
-  const [buttonActions, setButtonActions] = useState(tempActions);
+const Actions = (props: {
+  movieData: MovieDetails;
+  opinions: MovieOpinions;
+}) => {
+  const [buttonActions, setButtonActions] = useState(props.opinions);
 
   const handleClickEvent = useCallback(
     async (type: string, status: boolean) => {

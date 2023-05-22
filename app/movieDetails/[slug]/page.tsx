@@ -1,5 +1,7 @@
 import Actions from '@/app/components/actions';
 import Primewire from '@/app/components/primewire';
+import { searchMoviesArray } from '@/db/helpers/getPrimewireLink';
+import { getUserOpinions } from '@/db/helpers/getUsersOpinion';
 
 interface PropType {
   params: {
@@ -21,23 +23,26 @@ export interface MovieDetails {
   tagline: string;
 }
 
-async function getData(id: string) {
+async function getMovieData(id: string) {
   const apiKey = process.env.MOVIE_DB_KEY;
   const data = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`
   );
-  return data.json();
+  const json: MovieDetails = await data.json();
+
+  return json;
 }
 
 export default async function Page(props: PropType) {
-  const data: MovieDetails = await getData(props.params.slug);
+  const movieData: MovieDetails = await getMovieData(props.params.slug);
+  const movieOpinions = await getUserOpinions(props.params.slug);
+  const primewireLinks = searchMoviesArray(movieData.title);
 
   return (
     <main>
-      <h1 className="text-gray-500">{data.title}</h1>
-      <Actions movieData={data} />
-      {/* @ts-expect-error Server Component */}
-      <Primewire title={data.title} />
+      <h1 className="text-gray-500">{movieData.title}</h1>
+      <Actions movieData={movieData} opinions={movieOpinions} />
+      <Primewire movies={primewireLinks} />
     </main>
   );
 }
