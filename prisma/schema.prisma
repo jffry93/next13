@@ -33,7 +33,7 @@ model Profile {
 
 model Movie {
   id        Int      @id @default(autoincrement())
-  imoID     String
+  imoID     Int
   title     String
   img_path  String
   watchlist Boolean  @default(false)

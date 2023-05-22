@@ -8,7 +8,7 @@ interface PropType {
   searchParams: {}; // TODO: type this
 }
 
-interface MovieDetails {
+export interface MovieDetails {
   title: string;
   backdrop_path: string;
   genres: { id: number; name: string }[];
@@ -35,7 +35,7 @@ export default async function Page(props: PropType) {
   return (
     <main>
       <h1 className="text-gray-500">{data.title}</h1>
-      <Actions />
+      <Actions movieData={data} />
       {/* @ts-expect-error Server Component */}
       <Primewire title={data.title} />
     </main>

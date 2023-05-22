@@ -1,26 +1,36 @@
 'use client';
 import { useDebounceCallback } from '@/utils/debounce';
 import { useCallback, useState } from 'react';
+import type { MovieDetails } from '../movieDetails/[slug]/page';
 
 const tempActions = {
-  like: false,
-  favorite: false,
-  watched: true,
+  recommend: false,
+  watchlist: false,
+  completed: false,
 };
 
-const Actions = () => {
+const Actions = (props: { movieData: MovieDetails }) => {
   const [buttonActions, setButtonActions] = useState(tempActions);
 
-  const handleClickEvent = useCallback(async (title: string) => {
-    console.log(title);
-    const res = await fetch(`/api/movieNight?title=${title}`);
-    const json: boolean = await res.json();
+  const handleClickEvent = useCallback(
+    async (type: string, status: boolean) => {
+      const res = await fetch(`/api/movieNight`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ type, movieData: props.movieData, status }),
+      });
+      const json: {} = await res.json();
+      console.log(json);
 
-    setButtonActions((prevState) => ({
-      ...prevState,
-      [title]: json,
-    }));
-  }, []);
+      setButtonActions((prevState) => ({
+        ...prevState,
+        ...json,
+      }));
+    },
+    []
+  );
 
   const debouncedHandleClickEvent = useDebounceCallback(handleClickEvent, 500);
 
@@ -36,8 +46,7 @@ const Actions = () => {
               : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 '
           } rounded-md f focus:outline-none disabled:bg-gray-800 disabled:cursor-not-allowed`}
           onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-            const title = event.currentTarget.innerText;
-            debouncedHandleClickEvent(title);
+            debouncedHandleClickEvent(actionType, status);
           }}
         >
           {actionType}
