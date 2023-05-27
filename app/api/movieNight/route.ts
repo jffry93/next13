@@ -20,17 +20,17 @@ export async function POST(req: Request) {
   const { id } = await user;
   const { type, movieData, status } = body;
 
-  // await prisma.movie.upsert({
-  //   where: { imoID_userId: { imoID: movieData.id, userId: id } },
-  //   update: { [type]: !status },
-  //   create: {
-  //     imoID: movieData.id,
-  //     userId: id,
-  //     [type]: !status,
-  //     title: movieData.title,
-  //     img_path: movieData.poster_path,
-  //   },
-  // });
+  await prisma.movie.upsert({
+    where: { imoID_userId: { imoID: movieData.id, userId: id } },
+    update: { [type]: !status },
+    create: {
+      imoID: movieData.id,
+      userId: id,
+      [type]: !status,
+      title: movieData.title,
+      img_path: movieData.poster_path,
+    },
+  });
 
   return NextResponse.json({ [type]: !status });
 }

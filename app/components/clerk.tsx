@@ -20,7 +20,7 @@ const createUser = async () => {
 };
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
-  createUser();
+  // createUser();
   return <ClerkProvider>{children}</ClerkProvider>;
 };
 
