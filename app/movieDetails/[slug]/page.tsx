@@ -49,9 +49,8 @@ export default async function Page(props: PropType) {
     <main>
       <h1 className="text-gray-500">{movieData.title}</h1>
       <Actions movieData={movieData} opinions={movieOpinions} />
-      <Suspense fallback={<div>Loading...</div>}>
-        <Primewire movies={primewireLinks} />
-      </Suspense>
+
+      <Primewire movies={primewireLinks} />
     </main>
   );
 }
