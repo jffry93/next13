@@ -12,19 +12,18 @@ const Actions = (props: {
 
   const handleClickEvent = useCallback(
     async (type: string, status: boolean) => {
-      const res = await fetch(`/api/movieNight`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ type, movieData: props.movieData, status }),
-      });
-      const json: {} = await res.json();
-
-      setButtonActions((prevState) => ({
-        ...prevState,
-        ...json,
-      }));
+      // const res = await fetch(`/api/movieNight`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ type, movieData: props.movieData, status }),
+      // });
+      // const json: {} = await res.json();
+      // setButtonActions((prevState) => ({
+      //   ...prevState,
+      //   ...json,
+      // }));
     },
     [props.movieData]
   );
