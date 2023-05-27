@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "xml2js": "node data/primewire/sitemap_to_json.js",
-    "generate": "node data/primewire/generate.js",
-    "postinstall": "prisma generate"
+    "generate": "node data/primewire/generate.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.17.1",
