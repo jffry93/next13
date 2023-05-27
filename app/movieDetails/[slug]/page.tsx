@@ -36,10 +36,13 @@ async function getMovieData(id: string) {
 }
 
 export default async function Page(props: PropType) {
-  const [movieData, movieOpinions] = await Promise.all([
-    getMovieData(props.params.slug) as Promise<MovieDetails>,
-    getUserOpinions(props.params.slug) as Promise<MovieOpinions>,
-  ]);
+  const movieData: MovieDetails = await getMovieData(props.params.slug);
+  const movieOpinions = await getUserOpinions(props.params.slug);
+  // const primewireLinks = searchMoviesArray(movieData.title);
+  // const [movieData, movieOpinions] = await Promise.all([
+  //   getMovieData(props.params.slug) as Promise<MovieDetails>,
+  //   getUserOpinions(props.params.slug) as Promise<MovieOpinions>,
+  // ]);
   const primewireLinks = getPrimeWireLink(movieData.title);
 
   return (
