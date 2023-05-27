@@ -31,7 +31,6 @@ export async function POST(req: Request) {
       img_path: movieData.poster_path,
     },
   });
-  prisma.$disconnect();
 
   return NextResponse.json({ [type]: !status });
 }
