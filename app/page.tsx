@@ -1,6 +1,7 @@
-import { SignUpButton } from '@clerk/nextjs';
+import { SignUpButton, currentUser } from '@clerk/nextjs';
+import { createUser } from './components/clerk';
 
-export default function Home() {
+const Welcome = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-16">
       <div className="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
@@ -26,4 +27,16 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+const Homepage = () => {
+  createUser();
+  return <div>User signed in</div>;
+};
+
+const Home = async () => {
+  const user = await currentUser();
+
+  return <> {user ? <Homepage /> : <Welcome />} </>;
+};
+export default Home;
