@@ -2,7 +2,7 @@ import { prisma } from '@/db';
 import { ClerkProvider, currentUser } from '@clerk/nextjs';
 
 // create user
-const createUser = async () => {
+export const createUser = async () => {
   const user = await currentUser();
 
   if (user) {
@@ -20,7 +20,6 @@ const createUser = async () => {
 };
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
-  // createUser();
   return <ClerkProvider>{children}</ClerkProvider>;
 };
 

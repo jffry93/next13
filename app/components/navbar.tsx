@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignInButton, UserButton, currentUser } from '@clerk/nextjs';
+import { createUser } from './clerk';
 
 const navigation = [
   { name: 'Movies', href: '/movies' },
@@ -9,6 +10,9 @@ const navigation = [
 
 const Navbar = async () => {
   const userData = await currentUser();
+  if (userData) {
+    createUser();
+  }
 
   return (
     <nav className="mt-16 animate-fade-in">
