@@ -40,7 +40,7 @@ export default async function Page(props: PropType) {
     getMovieData(props.params.slug) as Promise<MovieDetails>,
     getUserOpinions(props.params.slug) as Promise<MovieOpinions>,
   ]);
-  const primewireLinks = getPrimeWireLink(movieData.title);
+  const primewireLinks = await getPrimeWireLink(movieData.title);
 
   return (
     <main>

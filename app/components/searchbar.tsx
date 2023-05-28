@@ -65,14 +65,14 @@ const Searchbar = () => {
               if (index < 10)
                 return (
                   <div key={movie.id} className="py-1" role="none">
-                    <a
+                    <Link
                       href={'/movieDetails/' + movie.id}
                       className="block px-4 py-2 text-sm text-gray-300 "
                       role="menuitem"
                       id="menu-item-0"
                     >
                       {movie.title}
-                    </a>
+                    </Link>
                   </div>
                 );
             })}
