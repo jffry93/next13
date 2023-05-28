@@ -2,6 +2,8 @@ import Actions from '@/app/components/actions';
 import Primewire from '@/app/components/primewire';
 import { getPrimeWireLink } from '@/db/helpers/getPrimewireLink';
 import { getUserOpinions } from '@/db/helpers/getUsersOpinion';
+import type { MovieOpinions } from '@/db/helpers/getUsersOpinion';
+import { Suspense } from 'react';
 
 interface PropType {
   params: {
@@ -34,16 +36,19 @@ async function getMovieData(id: string) {
 }
 
 export default async function Page(props: PropType) {
-  const movieData: MovieDetails = await getMovieData(props.params.slug);
-  const movieOpinions = await getUserOpinions(props.params.slug);
-
+  const [movieData, movieOpinions] = await Promise.all([
+    getMovieData(props.params.slug) as Promise<MovieDetails>,
+    getUserOpinions(props.params.slug) as Promise<MovieOpinions>,
+  ]);
   const primewireLinks = getPrimeWireLink(movieData.title);
 
   return (
     <main>
       <h1 className="text-gray-500">{movieData.title}</h1>
       <Actions movieData={movieData} opinions={movieOpinions} />
-      <Primewire movies={primewireLinks} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Primewire movies={primewireLinks} />
+      </Suspense>
     </main>
   );
 }
