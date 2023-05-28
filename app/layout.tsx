@@ -66,7 +66,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const userData = await currentUser();
-  console.log(userData);
+
   return (
     <>
       <ClerkProvider>

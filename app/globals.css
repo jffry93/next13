@@ -11,6 +11,9 @@
   .hover-brand-gradient {
     @apply hover:text-transparent hover:bg-gradient-to-r from-indigo-500 from-30% to-blue-400 to-90%;
   }
+  .custom-padding-x {
+    @apply sm:px-2 md:px-4;
+  }
 }
 
 body {

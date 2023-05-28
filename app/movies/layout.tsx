@@ -1,5 +1,4 @@
 import React from 'react';
-import Searchbar from '../components/searchbar';
 
 export const metadata = {
   title: 'Routing Example Layout Title',
@@ -8,10 +7,7 @@ export const metadata = {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col items-center justify-center my-8">
-      <Searchbar />
-      {children}
-    </div>
+    <div className="flex flex-col items-center justify-center">{children}</div>
   );
 };
 
