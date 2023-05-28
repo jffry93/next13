@@ -1,5 +1,4 @@
 import React from 'react';
-import Searchbar from '../components/searchbar';
 
 export const metadata = {
   title: 'Routing Example Layout Title',
