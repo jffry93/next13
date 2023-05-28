@@ -3,15 +3,13 @@ import Image from 'next/image';
 import { SignInButton, UserButton, currentUser } from '@clerk/nextjs';
 import { createUser } from './clerk';
 
-const navigation = [
-  { name: 'Movies', href: '/movies' },
-  { name: 'History', href: '/history' },
-];
-
 const Navbar = async () => {
+  const navigation = [{ name: 'Movies', href: '/movies' }];
+
   const userData = await currentUser();
   if (userData) {
     createUser();
+    navigation.push({ name: 'History', href: '/history' });
   }
 
   return (
@@ -39,7 +37,7 @@ const Navbar = async () => {
           </Link>
         ))}
         {userData ? (
-          <UserButton />
+          <UserButton afterSignOutUrl="/" />
         ) : (
           <SignInButton afterSignInUrl={'/movies'} afterSignUpUrl="movies">
             <button className="text-sm duration-500 text-zinc-500 hover:text-zinc-300">

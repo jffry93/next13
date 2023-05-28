@@ -7,6 +7,7 @@ import { Analytics } from './components/analytics';
 import Navbar from './components/navbar';
 import Particles from './components/particles';
 import ClerkProvider from './components/clerk';
+import { currentUser } from '@clerk/nextjs';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -59,11 +60,13 @@ const calSans = LocalFont({
   variable: '--font-calsans',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const userData = await currentUser();
+  console.log(userData);
   return (
     <>
       <ClerkProvider>
@@ -78,9 +81,13 @@ export default function RootLayout({
                 : undefined
             }`}
           >
-            <div className="flex flex-col items-center justify-center w-screen h-screen min-h-full overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+            <div
+              className={`flex flex-col items-center ${
+                !userData && 'justify-center'
+              } w-screen h-screen min-h-full overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black`}
+            >
               {/* @ts-expect-error Server Component */}
-              <Navbar />
+              {userData && <Navbar />}
               <Particles
                 className="absolute inset-0 -z-10 animate-fade-in"
                 quantity={100}
