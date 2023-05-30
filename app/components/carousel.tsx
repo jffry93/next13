@@ -9,13 +9,15 @@ import SwiperCore, { Navigation, Pagination, A11y, Autoplay } from 'swiper';
 //install swiper modules
 SwiperCore.use([Navigation, Pagination, A11y, Autoplay]);
 
-const arrayData = [1, 2, 3, 4, 5, 6];
-
-const MovieCarousel = () => {
+const MovieCarousel = ({
+  arrayData,
+  reverseDirection = false,
+}: {
+  arrayData: number[];
+  reverseDirection: boolean;
+}) => {
   return (
-    <div
-      className={`flex flex-col items-center w-screen h-screen min-h-full overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black`}
-    >
+    <div className={`flex flex-col items-center w-screen overflow-hidden`}>
       <div className="w-full">
         <Swiper
           modules={[Navigation, Pagination, A11y, Autoplay]}
@@ -27,8 +29,10 @@ const MovieCarousel = () => {
           grabCursor={true}
           spaceBetween={30}
           autoplay={{
-            delay: 0,
             disableOnInteraction: false,
+            reverseDirection,
+            pauseOnMouseEnter: true,
+            delay: 0,
           }}
           speed={2000}
           breakpoints={{
