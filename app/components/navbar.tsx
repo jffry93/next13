@@ -14,7 +14,7 @@ const Navbar = async () => {
   }
 
   return (
-    <nav className="w-full animate-fade-in">
+    <nav className="relative z-10 w-full animate-fade-in">
       <ul
         className={`flex items-center justify-between w-full ${
           userData ? 'max-w-6xl' : 'max-w-md'
