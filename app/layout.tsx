@@ -88,11 +88,11 @@ export default async function RootLayout({
             >
               {/* @ts-expect-error Server Component */}
               {userData && <Navbar />}
+							{children}
               <Particles
                 className="absolute inset-0 -z-10 animate-fade-in"
                 quantity={100}
               />
-              {children}
             </div>
           </body>
         </html>
