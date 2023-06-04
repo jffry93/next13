@@ -1,4 +1,5 @@
 import React from 'react';
+import { MovieSearchbar } from '../components/searchbar';
 
 export const metadata = {
   title: 'Routing Example Layout Title',
@@ -7,7 +8,10 @@ export const metadata = {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col items-center justify-center">{children}</div>
+    <div className="relative flex flex-col items-center justify-center">
+      <MovieSearchbar />
+      {children}
+    </div>
   );
 };
 

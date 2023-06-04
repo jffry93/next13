@@ -35,7 +35,7 @@ export const MovieSearchbar = () => {
           Movies
         </Link>
       ) : (
-        <div className="relative w-full max-w-xs ">
+        <div className="absolute top-0 z-10 w-full max-w-xs mt-4">
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

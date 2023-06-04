@@ -2,6 +2,7 @@
 import { useDebounceState } from '@/utils/debounce';
 import { formatDate } from '@/utils/formateDate';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface MovieSlideProps {
@@ -48,7 +49,7 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
   };
 
   return (
-    <div className="relative bg-transparent">
+    <Link href={'/movieDetails/' + id} className="relative bg-transparent">
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-transparent">
         <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-4 p-4 pb-12">
           <h1 className="text-4xl font-display sm:text-6xl md:text-6xl">
@@ -84,6 +85,6 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
         )}
       </div>
       <div className="absolute top-0 w-full h-full bg-gradient-to-t sm:bg-gradient-to-r via-black sm:via-35% via-30% from-black to-transparent mix-blend-mode-screen" />
-    </div>
+    </Link>
   );
 };

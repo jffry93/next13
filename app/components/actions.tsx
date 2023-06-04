@@ -4,11 +4,20 @@ import { useCallback, useState } from 'react';
 import type { MovieDetails } from '../movieDetails/[slug]/page';
 import type { MovieOpinions } from '@/db/helpers/getUsersOpinion';
 
-const Actions = (props: {
+interface PropTypes {
   movieData: MovieDetails;
   opinions: MovieOpinions;
-}) => {
-  const [buttonActions, setButtonActions] = useState(props.opinions);
+  hasIcons?: boolean;
+  direction: 'row' | 'column';
+}
+
+const Actions = ({
+  movieData,
+  opinions,
+  direction = 'row',
+  hasIcons = false,
+}: PropTypes) => {
+  const [buttonActions, setButtonActions] = useState(opinions);
 
   const handleClickEvent = useCallback(
     async (type: string, status: boolean) => {
@@ -17,7 +26,7 @@ const Actions = (props: {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ type, movieData: props.movieData, status }),
+        body: JSON.stringify({ type, movieData: movieData, status }),
       });
       const json: {} = await res.json();
 
@@ -26,13 +35,13 @@ const Actions = (props: {
         ...json,
       }));
     },
-    [props.movieData]
+    [movieData]
   );
 
   const debouncedHandleClickEvent = useDebounceCallback(handleClickEvent, 150);
 
   return (
-    <div className="flex gap-4 my-4 actions">
+    <div className={`flex ${direction ? 'flex-col' : ''} gap-4 my-4 actions`}>
       {Object.entries(buttonActions).map(([actionType, status]) => (
         <button
           disabled={status && actionType === 'watched' && status}

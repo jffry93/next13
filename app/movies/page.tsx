@@ -1,4 +1,4 @@
-import DefaultCarousel from '../components/libs/swiper/carousel';
+import { PopularCarousel } from '../components/libs/swiper/carousel';
 import { PopularMovieSlide } from '../components/libs/swiper/slides/popular';
 
 const fetchPopularMovies = async () => {
@@ -30,7 +30,7 @@ const Movies = async () => {
 
   return (
     <div className="flex flex-col">
-      <DefaultCarousel slideArray={popularSlideArray} hasPagination={true} />
+      <PopularCarousel slideArray={popularSlideArray} hasPagination={true} />
     </div>
   );
 };

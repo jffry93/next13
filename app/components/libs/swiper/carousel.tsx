@@ -15,7 +15,7 @@ interface PropTypes {
   slideArray: ReactElement[];
 }
 
-const DefaultCarousel = ({ slideArray, hasPagination }: PropTypes) => {
+export const PopularCarousel = ({ slideArray, hasPagination }: PropTypes) => {
   const modules = [];
 
   if (hasPagination) {
@@ -51,5 +51,3 @@ const DefaultCarousel = ({ slideArray, hasPagination }: PropTypes) => {
     </div>
   );
 };
-
-export default DefaultCarousel;

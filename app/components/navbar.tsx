@@ -11,6 +11,7 @@ const Navbar = async () => {
   if (userData) {
     createUser();
     navigation.push({ name: 'History', href: '/history' });
+    navigation.push({ name: 'Movies', href: '/movies' });
   }
 
   return (
@@ -32,7 +33,6 @@ const Navbar = async () => {
           />
         </Link>
         <div className="flex items-center justify-end w-full gap-4">
-          {userData && <MovieSearchbar />}
           {navigation.map((item) => (
             <Link
               key={item.href}
