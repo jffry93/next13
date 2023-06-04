@@ -6,7 +6,7 @@ import React from 'react';
 import { Analytics } from './components/analytics';
 import Navbar from './components/navbar';
 import Particles from './components/particles';
-import ClerkProvider from './components/clerk';
+import ClerkProvider from './components/libs/clerk/clerk';
 import { currentUser } from '@clerk/nextjs';
 import './globals.css';
 

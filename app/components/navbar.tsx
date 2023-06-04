@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SignInButton, UserButton, currentUser } from '@clerk/nextjs';
-import { createUser } from './clerk';
+import { createUser } from './libs/clerk/clerk';
 import { MovieSearchbar } from './searchbar';
 
 const Navbar = async () => {

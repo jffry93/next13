@@ -1,5 +1,5 @@
 import { SignUpButton, currentUser } from '@clerk/nextjs';
-import { createUser } from './components/clerk';
+import { createUser } from './components/libs/clerk/clerk';
 import Navbar from './components/navbar';
 
 const Welcome = () => {
