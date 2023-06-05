@@ -51,7 +51,7 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
   return (
     <Link href={'/movieDetails/' + id} className="relative bg-transparent">
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-transparent">
-        <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-4 p-4 pb-12">
+        <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-4 p-4 pb-16">
           <h1 className="text-4xl font-display sm:text-6xl md:text-6xl">
             {title}
           </h1>
@@ -69,7 +69,7 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
         </div>
       </div>
       <div
-        className="md:ml-96 sm:ml-56 relative sm:min-h-[700px] min-h-[500px] max-h-[800px] text-slate-300 bg-cover bg-top bg-no-repeat opacity-40"
+        className="h-screen md:ml-64 sm:ml-56 relative sm:min-h-[500px] min-h-[500px] max-h-[700px] text-slate-300 bg-cover bg-top bg-no-repeat opacity-40"
         style={backgroundImageStyle}
       >
         {!isDesktop && (
@@ -84,7 +84,7 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
           </div>
         )}
       </div>
-      <div className="absolute top-0 w-full h-full bg-gradient-to-t sm:bg-gradient-to-r via-black sm:via-35% via-30% from-black to-transparent mix-blend-mode-screen" />
+      <div className="absolute top-0 w-full h-full bg-gradient-to-t sm:bg-gradient-to-r via-black sm:via-[16rem] via-30% from-black to-transparent mix-blend-mode-screen" />
     </Link>
   );
 };

@@ -22,7 +22,9 @@ export const PopularCarousel = ({ slideArray, hasPagination }: PropTypes) => {
     modules.push(Pagination);
   }
   return (
-    <div className={`flex flex-col items-center w-screen overflow-hidden`}>
+    <div
+      className={`relative -mt-20 flex flex-col items-center w-screen overflow-hidden`}
+    >
       <div className="w-full min-h-16">
         <Swiper
           pagination={{

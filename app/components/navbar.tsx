@@ -10,8 +10,8 @@ const Navbar = async () => {
   const userData = await currentUser();
   if (userData) {
     createUser();
-    navigation.push({ name: 'History', href: '/history' });
     navigation.push({ name: 'Movies', href: '/movies' });
+    navigation.push({ name: 'History', href: '/history' });
   }
 
   return (
