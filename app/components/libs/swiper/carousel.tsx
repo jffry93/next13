@@ -35,11 +35,11 @@ export const PopularCarousel = ({ slideArray, hasPagination }: PropTypes) => {
             },
           }}
           modules={[Navigation, Pagination, A11y, Autoplay]}
-          // autoplay={{
-          //   disableOnInteraction: false,
-          //   pauseOnMouseEnter: true,
-          //   delay: 10000,
-          // }}
+          autoplay={{
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            delay: 10000,
+          }}
         >
           {slideArray.map((SlideComponent, index) => {
             return (
