@@ -29,6 +29,7 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     push('/movieDetails/' + id);
   };
 
@@ -75,23 +76,25 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
           </p>
         </div>
       </div>
-      <div
-        className="h-screen md:ml-64 sm:ml-56 relative sm:min-h-[500px] min-h-[500px] max-h-[700px] text-slate-300 bg-cover bg-top bg-no-repeat opacity-40"
-        style={backgroundImageStyle}
-      >
-        {!isDesktop && (
-          <div className="w-full min-h-[500px] relative">
-            <Image
-              className="w-full h-full min-h-[500px]"
-              src={`https://image.tmdb.org/t/p/w780${poster_path}`}
-              alt={title}
-              width={500}
-              height={750}
-            />
-          </div>
-        )}
+      <div className="opacity-60">
+        <div
+          className="h-screen sm:ml-32 relative sm:min-h-[500px] min-h-[500px] max-h-[700px] lg:max-h-[900px] text-slate-300 bg-cover bg-top bg-no-repeat "
+          style={backgroundImageStyle}
+        >
+          {!isDesktop && (
+            <div className="w-full min-h-[500px] relative">
+              <Image
+                className="w-full h-full min-h-[500px]"
+                src={`https://image.tmdb.org/t/p/w780${poster_path}`}
+                alt={title}
+                width={500}
+                height={750}
+              />
+            </div>
+          )}
+        </div>
+        <div className="absolute top-0 w-full h-full bg-gradient-to-t sm:bg-gradient-to-r via-gray-900 sm:via-[16rem] via-20% from-black to-transparent mix-blend-mode-screen " />
       </div>
-      <div className="absolute top-0 w-full h-full bg-gradient-to-t sm:bg-gradient-to-r via-black sm:via-[16rem] via-30% from-black to-transparent mix-blend-mode-screen" />
     </div>
   );
 };

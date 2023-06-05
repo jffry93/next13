@@ -84,15 +84,20 @@ export default async function RootLayout({
             <div
               className={`flex flex-col items-center ${
                 !userData && 'justify-center'
-              } w-screen h-screen min-h-full overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black`}
+              } w-screen h-screen min-h-full ${!userData && 'overflow-hidden'}`}
             >
               {/* @ts-expect-error Server Component */}
               {userData && <Navbar />}
-							{children}
-              <Particles
-                className="absolute inset-0 -z-10 animate-fade-in"
-                quantity={100}
-              />
+              {children}
+              <div
+                className={`fixed w-screen h-screen min-h-full overflow-hidden
+                 bg-gradient-to-tl from-black via-zinc-600/20 to-black`}
+              >
+                <Particles
+                  className="fixed inset-0 -z-10 animate-fade-in"
+                  quantity={100}
+                />
+              </div>
             </div>
           </body>
         </html>

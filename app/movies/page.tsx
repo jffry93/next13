@@ -1,5 +1,7 @@
+import { FreeMode } from 'swiper';
 import { PopularCarousel } from '../components/libs/swiper/carousel';
 import { PopularMovieSlide } from '../components/libs/swiper/slides/popular';
+import Freemode from '../components/libs/swiper/freemode';
 
 const fetchPopularMovies = async () => {
   // get movies
@@ -31,6 +33,7 @@ const Movies = async () => {
   return (
     <div className="flex flex-col">
       <PopularCarousel slideArray={popularSlideArray} hasPagination={true} />
+      <Freemode />
     </div>
   );
 };
