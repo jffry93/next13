@@ -15,7 +15,7 @@ const Navbar = async () => {
   }
 
   return (
-    <nav className="relative z-10 w-full animate-fade-in">
+    <nav className="relative z-10 w-full px-4 animate-fade-in">
       <ul
         className={`flex items-center justify-between w-full ${
           userData ? 'max-w-6xl' : 'max-w-md'
@@ -23,7 +23,7 @@ const Navbar = async () => {
       >
         <Link
           href={'/'}
-          className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+          className="text-sm duration-500 text-zinc-200 hover:text-zinc-300"
         >
           <Image
             alt="animated popcorn gif"
@@ -37,7 +37,7 @@ const Navbar = async () => {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+              className="text-sm duration-500 text-zinc-200 hover:text-zinc-300"
             >
               {item.name}
             </Link>

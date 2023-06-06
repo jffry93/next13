@@ -43,7 +43,7 @@ export default async function Page(props: PropType) {
   const primewireLinks = await getPrimeWireLink(movieData.title);
 
   return (
-    <main>
+    <main className="relative z-10">
       <h1 className="text-gray-500">{movieData.title}</h1>
       <Actions
         movieData={movieData}
