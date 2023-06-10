@@ -3,6 +3,11 @@ import { PopularCarousel } from '../components/libs/swiper/carousel';
 import { PopularMovieSlide } from '../components/libs/swiper/slides/popular';
 import Freemode from '../components/libs/swiper/freemode';
 import { MovieCardSlide } from '../components/libs/swiper/slides/movieCard';
+import {
+  MovieOpinions,
+  getUserMovieOpinions,
+  getUserOpinions,
+} from '@/db/helpers/getUsersOpinion';
 
 const tmdbGenreIds = {
   Action: 28,
@@ -55,6 +60,7 @@ interface SecondarySlideProps {
 [];
 
 const Movies = async () => {
+  const userData = await getUserMovieOpinions();
   const popularMovieData: TopSlideProps[] = await fetchPopularMovies();
 
   const genreFetchPromises = Object.values(tmdbGenreIds).map(
@@ -65,7 +71,14 @@ const Movies = async () => {
     genreFetchPromises
   );
 
-  const popularSlideArray = popularMovieData.map((movie) => {
+  const popularMovieDataWithOpinions = popularMovieData.map((movie) => {
+    const userOpinion = userData.find((opinion) => {
+      return opinion.imoID === movie.id;
+    });
+    return { ...movie, userOpinion };
+  });
+
+  const popularSlideArray = popularMovieDataWithOpinions.map((movie) => {
     return <PopularMovieSlide key={movie.id} {...movie} />;
   });
 
@@ -74,6 +87,8 @@ const Movies = async () => {
       return <MovieCardSlide key={movie.id} {...movie} />;
     });
   });
+
+  console.log(popularMovieDataWithOpinions);
 
   return (
     <div className="flex flex-col">

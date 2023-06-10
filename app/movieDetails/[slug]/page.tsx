@@ -49,7 +49,7 @@ export default async function Page(props: PropType) {
         movieData={movieData}
         opinions={movieOpinions}
         direction="row"
-        hasIcons={true}
+        // hasIcons={true}
       />
       <Suspense fallback={<div>Loading...</div>}>
         <Primewire movies={primewireLinks} />

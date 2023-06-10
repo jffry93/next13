@@ -1,9 +1,8 @@
 'use client';
-import { useDebounceState } from '@/utils/debounce';
+import Actions from '@/app/components/actions';
 import { formatDate } from '@/utils/formateDate';
+import { Movie } from '@prisma/client';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface MovieSlideProps {
@@ -13,6 +12,7 @@ interface MovieSlideProps {
   overview: string;
   release_date: string;
   poster_path: string;
+  userOpinion?: Movie;
 }
 
 export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
@@ -20,8 +20,9 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
   backdrop_path,
   title,
   overview,
-  release_date,
   poster_path,
+  release_date,
+  userOpinion,
 }) => {
   const { push } = useRouter();
 
@@ -38,6 +39,24 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
   return (
     <div className="relative bg-transparent" onClick={handleClick}>
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-transparent">
+        <Actions
+          hasIcons={true}
+          movieData={{
+            id,
+            title,
+            poster_path,
+          }}
+          opinions={
+            userOpinion
+              ? {
+                  recommend: userOpinion.recommend,
+                  watchlist: userOpinion.watchlist,
+                  completed: userOpinion.completed,
+                }
+              : { recommend: false, watchlist: false, completed: false }
+          }
+          availableActions={['watchlist']}
+        />
         <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-4 p-4 pb-16">
           <h1 className="text-4xl font-display sm:text-6xl md:text-6xl">
             {title}
