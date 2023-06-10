@@ -59,7 +59,7 @@ const Actions = ({
     <div
       className={`flex ${
         direction !== 'row' ? 'flex-col' : ''
-      } gap-4 my-4 actions`}
+      } gap-4 actions`}
     >
       {Object.entries(buttonActions).map(([actionType, status]) => {
         if (availableActions.includes(actionType) === false) return null;
@@ -73,7 +73,8 @@ const Actions = ({
                 fillColor="#ccc"
                 strokeColor="#ccc"
                 speed={0.5}
-                onClick={() => {
+                onClick={(e) => {
+									e.stopPropagation();
                   debouncedHandleClickEvent(actionType, status);
                 }}
               />

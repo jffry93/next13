@@ -18,7 +18,7 @@ const Navbar = async () => {
     <nav className="relative z-10 w-full px-4 animate-fade-in">
       <ul
         className={`flex items-center justify-between w-full ${
-          userData ? 'max-w-6xl' : 'max-w-md'
+          userData ? 'max-w-6xl' : 'max-w-sm'
         } gap-4 py-2 m-auto custom-padding-x`}
       >
         <Link

@@ -38,8 +38,13 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
 
   return (
     <div className="relative bg-transparent" onClick={handleClick}>
-      <div className="absolute top-0 left-0 z-10 w-full h-full bg-transparent">
-        <Actions
+      <div className="absolute top-0 left-0 z-10 flex w-full h-full bg-transparent">
+        <div className="flex flex-col items-start justify-end w-full h-full gap-4 p-4 pb-16 m-auto max-w-7xl">
+					<div className='flex justify-between w-full'>
+          <h1 className="max-w-xl text-4xl font-display sm:text-6xl md:text-6xl">
+            {title}
+          </h1>
+					<Actions
           hasIcons={true}
           movieData={{
             id,
@@ -57,12 +62,9 @@ export const PopularMovieSlide: React.FC<MovieSlideProps> = ({
           }
           availableActions={['watchlist']}
         />
-        <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-4 p-4 pb-16">
-          <h1 className="text-4xl font-display sm:text-6xl md:text-6xl">
-            {title}
-          </h1>
+				</div>
           <p className="font-bold">{formatDate(release_date)}</p>
-          <p>
+          <p className='max-w-xl'>
             {overview.length > 120
               ? `${overview
                   .slice(0, 120)
