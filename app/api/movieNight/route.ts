@@ -20,6 +20,11 @@ export async function POST(req: Request) {
   const { id } = await user;
   const { type, movieData, status } = body;
 
+  // prevent user from changing history
+  if (type === 'completed' && status === true) {
+    return null;
+  }
+
   await prisma.movie.upsert({
     where: { imoID_userId: { imoID: movieData.id, userId: id } },
     update: { [type]: !status },

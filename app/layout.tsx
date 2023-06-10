@@ -86,9 +86,6 @@ export default async function RootLayout({
                 !userData && 'justify-center'
               } w-screen h-screen min-h-full ${!userData && 'overflow-hidden'}`}
             >
-              {/* @ts-expect-error Server Component */}
-              {userData && <Navbar />}
-              {children}
               <div
                 className={`fixed w-screen h-screen min-h-full overflow-hidden
                  bg-gradient-to-tl from-black via-zinc-600/20 to-black`}
@@ -98,6 +95,9 @@ export default async function RootLayout({
                   quantity={100}
                 />
               </div>
+              {/* @ts-expect-error Server Component */}
+              {userData && <Navbar />}
+              {children}
             </div>
           </body>
         </html>

@@ -31,3 +31,15 @@ export async function getUserOpinions(id: string) {
     };
   }
 }
+
+export async function getUserMovieOpinions() {
+  const user = await currentUser();
+
+  const usersOpinion = await prisma.movie.findMany({
+    where: {
+      userId: user?.id,
+    },
+  });
+
+  return usersOpinion;
+}

@@ -27,15 +27,7 @@ export const MovieSearchbar = () => {
   const debounceMovieSearch = useDebounceCallback(searchMovies, 250);
   return (
     <>
-      {!pathname.includes('/movie') ? (
-        <Link
-          href={'/movies'}
-          className="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
-        >
-          Movies
-        </Link>
-      ) : (
-        <div className="absolute top-0 z-10 w-full max-w-xs mt-4">
+        <div className="absolute top-0 z-10 w-full max-w-xs px-2 mt-2">
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -107,7 +99,6 @@ export const MovieSearchbar = () => {
             </div>
           )}
         </div>
-      )}
     </>
   );
 };
