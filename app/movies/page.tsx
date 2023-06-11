@@ -71,6 +71,17 @@ const Movies = async () => {
     genreFetchPromises
   );
 
+	const genreMovieDataWithOpinions = genreMovieData.map((moviesByGenre) => {
+		return moviesByGenre.map((movie) => {
+			const userOpinion = userData.find((opinion) => {
+				return opinion.imoID === movie.id;
+			});
+			return { ...movie, userOpinion };
+		});
+	})
+
+
+
   const popularMovieDataWithOpinions = popularMovieData.map((movie) => {
     const userOpinion = userData.find((opinion) => {
       return opinion.imoID === movie.id;
@@ -82,13 +93,12 @@ const Movies = async () => {
     return <PopularMovieSlide key={movie.id} {...movie} />;
   });
 
-  const genreSlidesArrays = genreMovieData.map((moviesByGenre, index) => {
+  const genreSlidesArrays = genreMovieDataWithOpinions.map((moviesByGenre, index) => {
     return moviesByGenre.map((movie) => {
       return <MovieCardSlide key={movie.id} {...movie} />;
     });
   });
 
-  console.log(popularMovieDataWithOpinions);
 
   return (
     <div className="flex flex-col">

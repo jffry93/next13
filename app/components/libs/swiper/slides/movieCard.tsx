@@ -1,5 +1,7 @@
 'use client';
+import Actions from '@/app/components/actions';
 import { formatDate } from '@/utils/formateDate';
+import type { Movie } from '@prisma/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -10,6 +12,7 @@ interface MovieSlideProps {
   overview: string;
   release_date: string;
   poster_path: string;
+  userOpinion?: Movie;
 }
 
 export const MovieCardSlide: React.FC<MovieSlideProps> = ({
@@ -17,6 +20,7 @@ export const MovieCardSlide: React.FC<MovieSlideProps> = ({
   title,
   release_date,
   poster_path,
+  userOpinion,
 }) => {
   const { push } = useRouter();
 
@@ -29,9 +33,31 @@ export const MovieCardSlide: React.FC<MovieSlideProps> = ({
   return (
     <div className="relative bg-transparent" onClick={handleClick}>
       <div className="absolute top-0 left-0 z-10 w-full h-full bg-transparent">
-        <div className="flex flex-col items-start justify-end w-full h-full max-w-xl gap-3 p-4 pb-8">
-          <h1 className="text-xl font-display ">{title}</h1>
-          <p className="font-bold text-l">{formatDate(release_date)}</p>
+        <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-row-reverse m-2">
+            <Actions
+              hasIcons={true}
+              movieData={{
+                id,
+                title,
+                poster_path,
+              }}
+              opinions={
+                userOpinion
+                  ? {
+                      recommend: userOpinion.recommend,
+                      watchlist: userOpinion.watchlist,
+                      completed: userOpinion.completed,
+                    }
+                  : { recommend: false, watchlist: false, completed: false }
+              }
+              availableActions={['watchlist']}
+            />
+          </div>
+          <div className="flex flex-col items-start justify-end w-full gap-3 p-4 pb-8">
+            <h1 className="text-xl font-display ">{title}</h1>
+            <p className="font-bold text-l">{formatDate(release_date)}</p>
+          </div>
         </div>
       </div>
       <div className="opacity-50">

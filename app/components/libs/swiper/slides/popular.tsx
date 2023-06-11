@@ -1,7 +1,7 @@
 'use client';
 import Actions from '@/app/components/actions';
 import { formatDate } from '@/utils/formateDate';
-import { Movie } from '@prisma/client';
+import type { Movie } from '@prisma/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
