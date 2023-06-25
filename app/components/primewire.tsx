@@ -8,6 +8,7 @@ const Primewire = ({ movies }: PropType) => {
   if (movies.length <= 0) {
     return <div className="text-red-500">Movie not found</div>;
   }
+  console.log(movies);
   return (
     <>
       {movies.map((movie) => {
