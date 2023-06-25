@@ -57,15 +57,6 @@ export default async function Page(props: PropType) {
       <Suspense fallback={<div>Loading...</div>}>
         <Primewire movies={primewireLinks} />
       </Suspense>
-
-      <iframe
-        title="Your descriptive title here"
-        width="100%"
-        height="500"
-        src="https://dokicloud.one/embed-4/vple13dtniBB?z="
-        allowFullScreen
-        loading="eager"
-      ></iframe>
     </main>
   );
 }

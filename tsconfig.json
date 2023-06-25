@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/imdb/movies",
-    "app/api/imdb/movieDetails"
+    "app/api/imdb/movieDetails",
+    "data/primewire/collectMovieInfo.js"
   ],
   "exclude": ["node_modules"]
 }

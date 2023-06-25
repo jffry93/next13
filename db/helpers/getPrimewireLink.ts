@@ -20,7 +20,7 @@ const searchMoviesArray = (title: string) => {
 
 export const constructMovieUrl = (id: number, title: string) => {
   const formattedTitle = title.split(' ').join('-');
-  return `https://primewire.mx/movie/watch-${formattedTitle}-online-${id}`;
+  return `https://primewire.mx/watch-movie/watch-${formattedTitle}-online-${id}`;
 };
 
 export const getPrimeWireLink = (searchString: string) => {
