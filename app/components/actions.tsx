@@ -57,9 +57,7 @@ const Actions = ({
 
   return (
     <div
-      className={`flex ${
-        direction !== 'row' ? 'flex-col' : ''
-      } gap-4 actions`}
+      className={`flex ${direction !== 'row' ? 'flex-col' : ''} gap-4 actions`}
     >
       {Object.entries(buttonActions).map(([actionType, status]) => {
         if (availableActions.includes(actionType) === false) return null;
@@ -67,6 +65,7 @@ const Actions = ({
           <>
             {hasIcons ? (
               <UseAnimations
+                className="cursor-pointer"
                 reverse={status}
                 animation={ActionIcons[actionType]}
                 size={40}
@@ -74,7 +73,7 @@ const Actions = ({
                 strokeColor="#ccc"
                 speed={0.5}
                 onClick={(e) => {
-									e.stopPropagation();
+                  e.stopPropagation();
                   debouncedHandleClickEvent(actionType, status);
                 }}
               />

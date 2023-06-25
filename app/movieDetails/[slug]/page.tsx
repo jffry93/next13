@@ -3,6 +3,7 @@ import Primewire from '@/app/components/primewire';
 import { getPrimeWireLink } from '@/db/helpers/getPrimewireLink';
 import { getUserOpinions } from '@/db/helpers/getUsersOpinion';
 import type { MovieOpinions } from '@/db/helpers/getUsersOpinion';
+import Image from 'next/image';
 import { Suspense } from 'react';
 
 interface PropType {
@@ -44,13 +45,15 @@ export default async function Page(props: PropType) {
 
   return (
     <main className="relative z-10">
-      <h1 className="text-gray-500">{movieData.title}</h1>
-      <Actions
-        movieData={movieData}
-        opinions={movieOpinions}
-        direction="row"
-        // hasIcons={true}
+      <Image
+        className="w-full h-full min-h-[500px]"
+        src={`https://image.tmdb.org/t/p/w780${movieData.backdrop_path}`}
+        alt={movieData.title}
+        width={500}
+        height={750}
       />
+      <h1 className="text-gray-500">{movieData.title}</h1>
+      <Actions movieData={movieData} opinions={movieOpinions} direction="row" />
       <Suspense fallback={<div>Loading...</div>}>
         <Primewire movies={primewireLinks} />
       </Suspense>

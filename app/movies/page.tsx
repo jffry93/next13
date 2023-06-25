@@ -1,13 +1,10 @@
-import { FreeMode } from 'swiper';
+import {
+	getUserMovieOpinions
+} from '@/db/helpers/getUsersOpinion';
 import { PopularCarousel } from '../components/libs/swiper/carousel';
-import { PopularMovieSlide } from '../components/libs/swiper/slides/popular';
 import Freemode from '../components/libs/swiper/freemode';
 import { MovieCardSlide } from '../components/libs/swiper/slides/movieCard';
-import {
-  MovieOpinions,
-  getUserMovieOpinions,
-  getUserOpinions,
-} from '@/db/helpers/getUsersOpinion';
+import { PopularMovieSlide } from '../components/libs/swiper/slides/popular';
 
 const tmdbGenreIds = {
   Action: 28,
