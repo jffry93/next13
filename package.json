@@ -19,12 +19,14 @@
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
+    "chrome-aws-lambda": "^6",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "fuse.js": "^6.6.2",
     "next": "^13.4.2",
     "postcss": "8.4.23",
     "puppeteer": "^20.7.3",
+    "puppeteer-core": "^6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-useanimations": "^2.10.0",
@@ -34,8 +36,6 @@
     "xml2js": "^0.5.0",
     "zod": "^3.21.4"
   },
-  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
-  "main": "next.config.js",
   "devDependencies": {
     "@types/node": "^20.1.0",
     "daisyui": "^3.0.2",
@@ -43,6 +43,8 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jffry93/next13.git"
