@@ -10,15 +10,17 @@ if (process.env.BLESS_TOKEN) {
 // fetchMovieIframeURL('https://primewire.mx/watch-movie/watch-spider-man-into-the-spider-verse-sequel-online-66674');
 export const fetchMovieIframeURL = async (movieLink) => {
 	console.log('🔗',movieLink)
-	let browser = await puppeteer.launch({
-    headless: 'new',
-  });
+	let browser
   if (process.env.BLESS_TOKEN) {
 		console.log('Bless has been found 😇')
 		 browser = await puppeteer.connect({
 			browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BLESS_TOKEN}`,
 		})
-  }
+  } else {
+		browser = await puppeteer.launch({
+			headless: 'new',
+		});
+	}
 
 	console.log('🌐',browser)
 
