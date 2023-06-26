@@ -1,7 +1,6 @@
-let chrome = {};
+
 let puppeteer;
-if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-  chrome = require('chrome-aws-lambda');
+if (process.env.BLESS_TOKEN) {
   puppeteer = require('puppeteer-core');
 } else {
   puppeteer = require('puppeteer');
@@ -10,22 +9,22 @@ if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
 // Example of what the movieLink looks like:
 // fetchMovieIframeURL('https://primewire.mx/watch-movie/watch-spider-man-into-the-spider-verse-sequel-online-66674');
 export const fetchMovieIframeURL = async (movieLink) => {
-  let option = {
+	console.log('🔗',movieLink)
+	let browser = await puppeteer.launch({
     headless: 'new',
-  };
-  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-    option = {
-      headless: true,
-      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
-      defaultViewport: chrome.defaultViewport,
-      executablePath: await chrome.executablePath,
-      ignoreHTTPSErrors: true,
-    };
+  });
+  if (process.env.BLESS_TOKEN) {
+		console.log('Bless has been found 😇')
+		 browser = await puppeteer.connect({
+			browserWSEndpoint: `wss://chrome.browserless.io?token=${process.env.BLESS_TOKEN}`,
+		})
   }
 
-  console.log(movieLink);
-  const browser = await puppeteer.launch(option);
+	console.log('🌐',browser)
+
   const page = await browser.newPage();
+
+	console.log('📈',page)
 
   await page.goto(movieLink);
 
@@ -33,8 +32,11 @@ export const fetchMovieIframeURL = async (movieLink) => {
     const iframe = document.getElementById('iframe-embed');
     return iframe ? iframe.src : null;
   });
+	console.log('🎥',iframeSrc)
 
   await browser.close();
+
+	console.log('Closed the browser 🔐')
 
   return iframeSrc;
 };

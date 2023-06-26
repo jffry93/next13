@@ -44,7 +44,7 @@ export default async function Page(props: PropType) {
   const primewireLinks = await getPrimeWireLink(movieData.title);
 
   return (
-    <main className="relative z-10">
+    <main className="relative z-10 w-full">
       <Image
         className="w-full h-full min-h-[500px]"
         src={`https://image.tmdb.org/t/p/w780${movieData.backdrop_path}`}
