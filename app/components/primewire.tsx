@@ -22,9 +22,11 @@ const Primewire = ({ movies }: PropType) => {
     setMovieUrl(json);
   };
 
+  console.log(process.env.LOCAL);
+
   return (
     <>
-      {movieUrl && (
+      {process.env.LOCAL && movieUrl && (
         <iframe
           title="Your descriptive title here"
           width="100%"
@@ -35,13 +37,23 @@ const Primewire = ({ movies }: PropType) => {
       )}
       {movies.map((movie) => {
         return (
-          <div key={movie.id}>
-            <button
-              className="text-gray-700"
-              onClick={() => handleSelectMovie(movie)}
-            >
-              Watch - {movie.title}
-            </button>
+          <div key={'button' + movie.id}>
+            {process.env.LOCAL ? (
+              <button
+                className="text-gray-700"
+                onClick={() => handleSelectMovie(movie)}
+              >
+                Watch - {movie.title}
+              </button>
+            ) : (
+              <a
+                className="text-gray-700"
+                href={constructMovieUrl(movie.id, movie.title)}
+                target="_blank"
+              >
+                Watch - {movie.title}
+              </a>
+            )}
           </div>
         );
       })}
