@@ -1,53 +1,65 @@
 'use client';
-import React from 'react';
-import { IoMdHelpBuoy } from 'react-icons/io';
+import { useState, useEffect } from 'react';
+import { BiChat } from 'react-icons/bi';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Conversation from './Conversation';
+import Editor from './Editor';
+
+const ChatBox = () => {
+  return (
+    <div className="absolute bottom-0 right-0 flex flex-col justify-end w-full h-full max-w-sm transition-all duration-500 bg-gray-700 border-2">
+      Chatbox
+      <Conversation />
+      <Editor />
+    </div>
+  );
+};
 
 const CustomerSupport = () => {
-  const customerServiceGET = async () => {
-    console.log('GET');
+  const [toggleChat, setToggleChat] = useState(false);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-    const res = await fetch('/api/customerSupport');
-    const json = await res.json();
-    console.log(json);
+  // close chat box when user navigates to a different page
+  useEffect(() => {
+    setToggleChat(false);
+  }, [pathname, searchParams]);
+
+  const handleWindowClick = () => {
+    setToggleChat(false);
   };
 
-  const customerServicePOST = async () => {
-    console.log('POST');
+  useEffect(() => {
+    // When the component mounts, it starts listening for clicks anywhere in the window
+    window.addEventListener('click', handleWindowClick);
 
-    const data = { text: 'i like to party!!' };
+    return () => {
+      // When the component unmounts, it stops listening for clicks
+      window.removeEventListener('click', handleWindowClick);
+    };
+  }, []);
 
-    const res = await fetch('/api/customerSupport', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    const json = await res.json();
-
-    console.log(json);
+  const handleChatButtonClick = (e: { stopPropagation: () => void }) => {
+    // This stops the click event from reaching the window, so the chatbox won't be hidden immediately after being shown
+    e.stopPropagation();
+    setToggleChat(!toggleChat);
   };
 
   return (
     <>
+      {toggleChat && (
+        <div
+          onClick={(e) => e.stopPropagation()} // This stops clicks inside the chat box from reaching the window
+          className="fixed bottom-0 right-0 z-10 w-full h-full max-w-sm transition-all duration-500 origin-bottom transform scale-y-100 opacity-100 pointer-events-auto"
+        >
+          <ChatBox />
+        </div>
+      )}
       <button
-        className="fixed bottom-6 right-6"
-        onClick={(e) => {
-          customerServicePOST();
-        }}
+        className="fixed bottom-0 right-0 z-20 m-4"
+        onClick={handleChatButtonClick}
       >
-        <IoMdHelpBuoy size={32} color="#bbb" />
-        POST
-      </button>
-      <button
-        className="fixed bottom-6 right-20"
-        onClick={(e) => {
-          customerServiceGET();
-        }}
-      >
-        <IoMdHelpBuoy size={32} color="#bbb" />
-        GET
+        <BiChat size={32} color="#bbb" />
       </button>
     </>
   );
