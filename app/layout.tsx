@@ -9,6 +9,7 @@ import Particles from './components/particles';
 import ClerkProvider from './components/libs/clerk/clerk';
 import { currentUser } from '@clerk/nextjs';
 import './globals.css';
+import CustomerSupport from './components/customerSupport';
 
 export const metadata: Metadata = {
   title: {
@@ -98,6 +99,7 @@ export default async function RootLayout({
               {/* @ts-expect-error Server Component */}
               {userData && <Navbar />}
               {children}
+              <CustomerSupport />
             </div>
           </body>
         </html>
