@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react';
 import { BiChat } from 'react-icons/bi';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Conversation from './Conversation';
-import Editor from './Editor';
+import TinyMCEditor from './TinyMCE';
 
 const ChatBox = () => {
   return (
     <div className="absolute bottom-0 right-0 flex flex-col justify-end w-full h-full max-w-sm transition-all duration-500 bg-gray-700 border-2">
       Chatbox
       <Conversation />
-      <Editor />
+      <TinyMCEditor />
     </div>
   );
 };

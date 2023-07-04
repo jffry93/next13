@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "app/api/imdb/movies",
     "app/api/imdb/movieDetails",
-    "data/primewire/collectMovieInfo.js"
+    "data/primewire/collectMovieInfo.js",
+    "app/components/customerSupport/TinyMCE/index.js"
   ],
   "exclude": ["node_modules"]
 }
