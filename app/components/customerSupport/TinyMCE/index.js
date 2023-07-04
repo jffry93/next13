@@ -108,7 +108,7 @@ const TinyMCEditor = () => {
               prevPNode = findClosestP(editor.selection.getNode());
             });
 
-            // check if user is about to remove the p
+            // check if user is about to remove the p with an image
             editor.on('keydown', function (event) {
               if (event.keyCode == 8 || event.keyCode == 46) {
                 // 8: Backspace, 46: Delete
@@ -119,7 +119,7 @@ const TinyMCEditor = () => {
                   const imageNode = prevSibling.querySelector('img'); // Find an img element within the previousSibling
                   if (imageNode) {
                     // If there's an img element inside the previousSibling
-                    event.preventDefault(); // prevent the default action of the backspace key
+										editor.selection.select(imageNode); // Select the image node so it gets removed
                   }
                 }
               }
