@@ -114,12 +114,24 @@ const TinyMCEditor = () => {
                 // 8: Backspace, 46: Delete
                 const parent = findClosestP(editor.selection.getNode());
                 let cursorPosition = editor.selection.getRng().startOffset;
+                // Get current selection range
+                let selectionRange = editor.selection.getRng();
+                let isTextHighlighted =
+                  selectionRange.startOffset !== selectionRange.endOffset;
+
                 if (cursorPosition === 0 && parent.previousSibling) {
+                  if (isTextHighlighted) {
+                    return;
+                  }
                   const prevSibling = parent.previousSibling;
                   const imageNode = prevSibling.querySelector('img'); // Find an img element within the previousSibling
                   if (imageNode) {
                     // If there's an img element inside the previousSibling
-										editor.selection.select(imageNode); // Select the image node so it gets removed
+                    editor.selection.select(imageNode); // Select the image node so it gets removed
+                    // remove parent node if it's empty
+                    if (parent.innerHTML === '<br>') {
+                      parent.remove();
+                    }
                   }
                 }
               }
@@ -145,6 +157,7 @@ const TinyMCEditor = () => {
                   console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
                   handleDragFunction(currentNode, dragImage);
                 }
+                console.log(dragImage);
                 dragImage = null; // Reset dragImage after drop is handled
               }, 0);
             });
