@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { findClosestP } from './helpers/searchNodes';
 
 import {
+  handleDragFunction,
   handlePreventCursor,
   handleSeparateImage,
 } from './helpers/handleImage';
@@ -95,24 +96,45 @@ const TinyMCEditor = () => {
 
             // update character count on whenever content changes
             editor.on('SetContent', (e) => {
-              console.log('SetContent 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
+              // console.log('SetContent 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
               const node = editor.selection.getNode();
               handleSeparateImage(node); // moves image to new p element whenever created
               handleWordCount(e, editor); // check length whenever anything changes
             });
             // NodeChange executes whenever the node selected in editor changes
             editor.on('NodeChange', (e) => {
-              console.log('NodeChange 🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊');
+              // console.log('NodeChange 🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊');
               handlePreventCursor(e, editor, prevPNode);
               prevPNode = findClosestP(editor.selection.getNode());
             });
+
+            let dragImage = null;
+            editor.on('dragstart', () => {
+              const currentNode = editor.selection.getNode();
+              if (currentNode.nodeName === 'IMG') {
+                dragImage = currentNode.parentNode;
+                console.log(
+                  'dragImage 🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃',
+                  currentNode.parentNode
+                );
+              }
+
+              // console.log('dragstart ��', currentNode.parentNode);
+            });
             // Add a drop event listener
             editor.on('drop', () => {
-              console.log('Drop 🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃');
               // your function here
               setTimeout(() => {
                 const currentNode = editor.selection.getNode();
-                handleSeparateImage(currentNode);
+                if (currentNode.nodeName === 'IMG') {
+                  console.log(
+                    'dragImage 🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃',
+                    dragImage
+                  );
+                  console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
+                  handleDragFunction(currentNode, dragImage);
+                }
+                dragImage = null; // Reset dragImage after drop is handled
               }, 0);
             });
           },
