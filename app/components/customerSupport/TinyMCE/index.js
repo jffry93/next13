@@ -108,18 +108,29 @@ const TinyMCEditor = () => {
               prevPNode = findClosestP(editor.selection.getNode());
             });
 
+            // check if user is about to remove the p
+            editor.on('keydown', function (event) {
+              if (event.keyCode == 8 || event.keyCode == 46) {
+                // 8: Backspace, 46: Delete
+                const parent = findClosestP(editor.selection.getNode());
+                let cursorPosition = editor.selection.getRng().startOffset;
+                if (cursorPosition === 0 && parent.previousSibling) {
+                  const prevSibling = parent.previousSibling;
+                  const imageNode = prevSibling.querySelector('img'); // Find an img element within the previousSibling
+                  if (imageNode) {
+                    // If there's an img element inside the previousSibling
+                    event.preventDefault(); // prevent the default action of the backspace key
+                  }
+                }
+              }
+            });
+
             let dragImage = null;
             editor.on('dragstart', () => {
               const currentNode = editor.selection.getNode();
               if (currentNode.nodeName === 'IMG') {
                 dragImage = currentNode.parentNode;
-                console.log(
-                  'dragImage 🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃',
-                  currentNode.parentNode
-                );
               }
-
-              // console.log('dragstart ��', currentNode.parentNode);
             });
             // Add a drop event listener
             editor.on('drop', () => {
@@ -140,7 +151,7 @@ const TinyMCEditor = () => {
           },
         }}
         initialValue={''}
-        // onKeyUp={handleWordCount}
+        onKeyUp={handleWordCount}
         onKeyDown={handleDownInput}
         onPaste={handlePaste}
       />

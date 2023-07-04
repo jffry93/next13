@@ -150,11 +150,11 @@ export const handlePreventCursor = (event, editor, prevPNode) => {
       // P node above the current p node
       const nextSibling = p.nextSibling;
       if (event.element.nodeName === 'A') {
-        console.log(p);
-        console.log(node);
-        console.log('hello world');
-        console.log(nextSibling);
-        console.log(cursorPosition);
+        // console.log(p);
+        // console.log(node);
+        // console.log('hello world');
+        // console.log(nextSibling);
+        // console.log(cursorPosition);
 
         if (cursorPosition === 0) {
           cursorPosition = 1;
