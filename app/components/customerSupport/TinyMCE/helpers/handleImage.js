@@ -136,26 +136,33 @@ export const handleDragFunction = (node, dragImage) => {
 };
 
 // prevent cursor to be placed inside p node with image
-export const handlePreventCursor = (event, editor, prevPNode) => {
+export const handleImageCaret = (event, editor, prevPNode) => {
   const node = editor.selection.getNode();
   const p = findClosestP(node);
   if (p) {
     // handle cursor position if user selects P node with image
     const images = p.getElementsByTagName('IMG');
     if (images.length > 0 && event.element.nodeName !== 'IMG') {
+      // Create new paragraph and insert after 'p'
+      const newBr = document.createElement('br');
+      const newP = document.createElement('p');
+      newP.appendChild(newBr);
       // Current cursor position inside p node with image
       let cursorPosition = editor.selection.getRng().startOffset;
       // P node below the current p node
       const prevSibling = p.previousSibling;
       // P node above the current p node
       const nextSibling = p.nextSibling;
-      if (event.element.nodeName === 'A') {
-        // console.log(p);
-        // console.log(node);
-        // console.log('hello world');
-        // console.log(nextSibling);
-        // console.log(cursorPosition);
 
+      // check to see if the user is about to move back to same p node
+      if (prevPNode === prevSibling || prevPNode === nextSibling) {
+        const imageNode = p.querySelector('img');
+        editor.selection.select(imageNode);
+        return;
+      }
+
+      // Check if image is wrapped in a link
+      if (event.element.nodeName === 'A') {
         if (cursorPosition === 0) {
           cursorPosition = 1;
         } else {
@@ -167,31 +174,7 @@ export const handlePreventCursor = (event, editor, prevPNode) => {
       if (cursorPosition === 0) {
         // Current Cursor position is at the START of the paragraph with image
 
-        // check to see if the user is about to move back to same p node
-        if (prevPNode === prevSibling) {
-          // move to next sibling instead of prevSibling if it exists
-          if (nextSibling) {
-            console.log(nextSibling);
-            setTimeout(() => {
-              console.log(nextSibling);
-              editor.selection.scrollIntoView(nextSibling, 0);
-              editor.selection.setCursorLocation(nextSibling, 0);
-            }, 0);
-            return;
-          }
-          // if cursor is about to move to SAME P node and there is no next sibling
-          // Create new paragraph and insert after 'p'
-          const newBr = document.createElement('br');
-          const newP = document.createElement('p');
-          newP.appendChild(newBr);
-          p.parentNode.insertBefore(newP, p.nextSibling);
-          setTimeout(() => {
-            editor.selection.scrollIntoView(newP, 0);
-            editor.selection.setCursorLocation(newP, 0);
-          }, 0);
-          return;
-        }
-        // Move cursor to the end of the previous sibling
+        // Move cursor to start or end of the previous sibling
         if (prevSibling) {
           //setCursorLocation requires a textNode if value is not 0
           // Get the deepest text node within prevSibling
@@ -214,10 +197,6 @@ export const handlePreventCursor = (event, editor, prevPNode) => {
           }
         } else {
           // if there is no prevSibling above p node with image
-          // Create new paragraph and insert after 'p'
-          const newBr = document.createElement('br');
-          const newP = document.createElement('p');
-          newP.appendChild(newBr);
           p.parentNode.insertBefore(newP, p);
           setTimeout(() => {
             editor.selection.scrollIntoView(newP, 0);
@@ -228,44 +207,6 @@ export const handlePreventCursor = (event, editor, prevPNode) => {
         // When user traverses DOWN the node tree
         // Current Cursor position is at the END of the paragraph with image
 
-        // Check to see if user is about to move to SAME p node
-        if (prevPNode === nextSibling) {
-          // move to prevSibling instead of nextSibling if it exists
-          // Get the deepest text node within prevSibling
-          const textNode = getDeepestTextNode(prevSibling);
-          if (textNode) {
-            const textNodeLength = textNode.textContent.length;
-            const closestP = findClosestP(textNode); // can only scroll to p node
-            if (closestP) {
-              setTimeout(() => {
-                editor.selection.scrollIntoView(closestP, textNodeLength);
-                editor.selection.setCursorLocation(textNode, textNodeLength);
-              }, 0);
-            }
-          } else {
-            // If there is no textNode, set cursor to the start of prevSibling
-            setTimeout(() => {
-              editor.selection.scrollIntoView(prevSibling, 0);
-              editor.selection.setCursorLocation(prevSibling, 0);
-            }, 0);
-            return;
-          }
-          if (textNode) {
-            return;
-          }
-          // if cursor is about to move to same P node and there is no prevSibling
-          // Create new paragraph and insert before 'p'
-          const newBr = document.createElement('br');
-          const newP = document.createElement('p');
-          newP.appendChild(newBr);
-          p.parentNode.insertBefore(newP, p);
-          setTimeout(() => {
-            editor.selection.scrollIntoView(newP, 0),
-              editor.selection.setCursorLocation(newP, 0);
-          }, 0);
-          return;
-        }
-
         // Check to see if nextSibling exists to move cursor to
         if (nextSibling) {
           setTimeout(() => {
@@ -274,10 +215,6 @@ export const handlePreventCursor = (event, editor, prevPNode) => {
           }, 0);
         } else {
           // if there is no nextSibling below p node
-          // Create new paragraph and insert after 'p'
-          const newBr = document.createElement('br');
-          const newP = document.createElement('p');
-          newP.appendChild(newBr);
           p.parentNode.insertBefore(newP, p.nextSibling);
           setTimeout(() => {
             editor.selection.scrollIntoView(newP, 0);

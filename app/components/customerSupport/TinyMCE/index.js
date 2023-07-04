@@ -5,7 +5,7 @@ import { findClosestP } from './helpers/searchNodes';
 
 import {
   handleDragFunction,
-  handlePreventCursor,
+  handleImageCaret,
   handleSeparateImage,
 } from './helpers/handleImage';
 
@@ -79,7 +79,7 @@ const TinyMCEditor = () => {
           branding: false,
           menubar: false,
           toolbar: 'bold italic underline link emoticons image',
-          height: 550, //should be 150
+          height: 3000, //should be 150
           statusbar: false,
           link_title: false,
           link_target_list: false,
@@ -89,22 +89,21 @@ const TinyMCEditor = () => {
           auto_focus: true,
           content_style: `
 						img { height: auto; max-width: 100%; object-fit: contain; margin-right: auto; }
-						p img { ; caret-color: transparent; }
+						p img { caret-color: blue; }
+						p {border: 1px solid red}
 						`,
           setup: function (editor) {
             let prevPNode = null;
-
             // update character count on whenever content changes
             editor.on('SetContent', (e) => {
-              // console.log('SetContent 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
               const node = editor.selection.getNode();
               handleSeparateImage(node); // moves image to new p element whenever created
               handleWordCount(e, editor); // check length whenever anything changes
             });
             // NodeChange executes whenever the node selected in editor changes
             editor.on('NodeChange', (e) => {
-              // console.log('NodeChange 🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊');
-              handlePreventCursor(e, editor, prevPNode);
+              // determine cursor/caret position
+              handleImageCaret(e, editor, prevPNode);
               prevPNode = findClosestP(editor.selection.getNode());
             });
 
@@ -119,7 +118,7 @@ const TinyMCEditor = () => {
                 let isTextHighlighted =
                   selectionRange.startOffset !== selectionRange.endOffset;
 
-                if (cursorPosition === 0 && parent.previousSibling) {
+                if (cursorPosition === 0 && parent?.previousSibling) {
                   if (isTextHighlighted) {
                     return;
                   }
@@ -129,14 +128,15 @@ const TinyMCEditor = () => {
                     // If there's an img element inside the previousSibling
                     editor.selection.select(imageNode); // Select the image node so it gets removed
                     // remove parent node if it's empty
-                    if (parent.innerHTML === '<br>') {
-                      parent.remove();
-                    }
+                    // if (parent.innerHTML === '<br>') {
+                    //   parent.remove();
+                    // }
                   }
                 }
               }
             });
 
+            // DRAG AND DROP IMAGE
             let dragImage = null;
             editor.on('dragstart', () => {
               const currentNode = editor.selection.getNode();
@@ -150,14 +150,9 @@ const TinyMCEditor = () => {
               setTimeout(() => {
                 const currentNode = editor.selection.getNode();
                 if (currentNode.nodeName === 'IMG') {
-                  console.log(
-                    'dragImage 🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃🍃',
-                    dragImage
-                  );
-                  console.log('🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
                   handleDragFunction(currentNode, dragImage);
                 }
-                console.log(dragImage);
+
                 dragImage = null; // Reset dragImage after drop is handled
               }, 0);
             });

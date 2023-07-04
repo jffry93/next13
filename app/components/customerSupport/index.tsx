@@ -22,7 +22,7 @@ const CustomerSupport = () => {
 
   // close chat box when user navigates to a different page
   useEffect(() => {
-    setToggleChat(false);
+    setToggleChat(true);
   }, [pathname, searchParams]);
 
   const handleWindowClick = () => {
