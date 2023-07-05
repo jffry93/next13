@@ -1,6 +1,7 @@
 import { findClosestP, getDeepestTextNode } from './searchNodes';
 
 export const handleSeparateImage = (node) => {
+  console.log('handleSeparateImage 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
   const p = findClosestP(node);
   if (p) {
     const images = p.getElementsByTagName('IMG');
@@ -50,7 +51,61 @@ export const handleSeparateImage = (node) => {
   }
 };
 
+export const handleImageOnDrop = (editor, node, imgNodeBeforeDrag) => {
+  console.log('handleImageOnDrop 🌎🌎🌎🌎🌎🌎🌎');
+  const p = findClosestP(node);
+
+  // wrap image with anchor if it had an anchor before drag
+  if (imgNodeBeforeDrag.nodeName === 'A') {
+    // Create a new anchor element
+    const newAnchor = document.createElement('a');
+
+    // Copy all attributes from the old anchor to the new one
+    for (let i = 0; i < imgNodeBeforeDrag.attributes.length; i++) {
+      const attr = imgNodeBeforeDrag.attributes[i];
+      newAnchor.setAttribute(attr.name, attr.value);
+    }
+
+    // Clone the node and insert the clone inside the anchor
+    const cloneNode = node.cloneNode(true);
+    // Insert the image inside the anchor
+    newAnchor.appendChild(cloneNode);
+
+    // Replace the image node with the new anchor in the DOM
+    node.parentNode.replaceChild(newAnchor, node);
+
+    // Update the node reference
+    node = newAnchor;
+  }
+  let cursorPosition = editor.selection.getRng().startOffset;
+  console.log('cursorPosition', cursorPosition);
+  console.log('parent paragraph of image node', p);
+  // create new paragraph element
+  const newP = document.createElement('p');
+  // check if the paragraph is empty, if so, remove all text nodes
+  if (p.innerText.trim() === '') {
+    Array.from(p.childNodes).forEach((child) => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        p.removeChild(child);
+      }
+    });
+    return;
+  }
+  // insert new paragraph after current one
+  if (cursorPosition === 0) {
+    p.parentNode.insertBefore(newP, p);
+  } else {
+    p.parentNode.insertBefore(newP, p.nextSibling);
+  }
+
+  // Move node (image or anchor) to the new paragraph
+  newP.appendChild(node);
+  const imageNode = p.querySelector('img');
+  editor.selection.select(imageNode);
+};
+
 export const handleDragFunction = (node, dragImage) => {
+  console.log('handleDragFunction 🌎🌎🌎🌎🌎🌎🌎');
   const p = findClosestP(node);
   if (p) {
     const images = p.getElementsByTagName('IMG');
@@ -139,6 +194,7 @@ export const handleDragFunction = (node, dragImage) => {
 export const handleImageCaret = (event, editor, prevPNode) => {
   const node = editor.selection.getNode();
   const p = findClosestP(node);
+  console.log(event.element.nodeName, '☀️☀️☀️☀️☀️☀️☀️☀️☀️☀️');
   if (p) {
     // handle cursor position if user selects P node with image
     const images = p.getElementsByTagName('IMG');

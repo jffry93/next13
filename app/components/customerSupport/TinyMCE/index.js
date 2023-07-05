@@ -5,6 +5,7 @@ import { findClosestP } from './helpers/searchNodes';
 
 import {
   handleDragFunction,
+  handleImageOnDrop,
   handleImageCaret,
   handleSeparateImage,
 } from './helpers/handleImage';
@@ -128,9 +129,9 @@ const TinyMCEditor = () => {
                     // If there's an img element inside the previousSibling
                     editor.selection.select(imageNode); // Select the image node so it gets removed
                     // remove parent node if it's empty
-                    // if (parent.innerHTML === '<br>') {
-                    //   parent.remove();
-                    // }
+                    if (parent.innerHTML === '<br>') {
+                      parent.remove();
+                    }
                   }
                 }
               }
@@ -139,18 +140,29 @@ const TinyMCEditor = () => {
             // DRAG AND DROP IMAGE
             let dragImage = null;
             editor.on('dragstart', () => {
+              // const currentNode = editor.selection.getNode();
+              // if (currentNode.nodeName === 'IMG') {
+              //   e.preventDefault();
+              //   return;
+              // }
+
               const currentNode = editor.selection.getNode();
               if (currentNode.nodeName === 'IMG') {
                 dragImage = currentNode.parentNode;
               }
             });
             // Add a drop event listener
-            editor.on('drop', () => {
+            editor.on('drop', (e) => {
+              // if (currentNode.nodeName === 'IMG') {
+              //   e.preventDefault();
+              //   return;
+              // }
               // your function here
               setTimeout(() => {
                 const currentNode = editor.selection.getNode();
                 if (currentNode.nodeName === 'IMG') {
-                  handleDragFunction(currentNode, dragImage);
+                  handleImageOnDrop(editor, currentNode, dragImage);
+                  e.preventDefault();
                 }
 
                 dragImage = null; // Reset dragImage after drop is handled
