@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // search for movies by title using the movie db api
 export async function GET(req: Request) {
   try {
-    const { success } = await rateLimit.limit('global-rate-limit-key');
+    const { success } = await rateLimit().limit('global-rate-limit-key');
 
     if (!success) {
       return NextResponse.json({
@@ -36,7 +36,7 @@ export async function GET(req: Request) {
 // search for movies by title using the movie db api
 export async function POST(req: Request) {
   try {
-    const { success } = await rateLimit.limit('global-rate-limit-key');
+    const { success } = await rateLimit().limit('global-rate-limit-key');
 
     if (!success) {
       return NextResponse.json({
