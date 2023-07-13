@@ -1,7 +1,7 @@
 'use client';
 import { Editor } from '@tinymce/tinymce-react';
-import { useEffect, useState } from 'react';
-import { findClosestP } from './helpers/searchNodes';
+import { useEffect, useRef, useState } from 'react';
+import { extractTextFromHtml, findClosestP } from './helpers/handleNodes';
 
 import {
   handleDragFunction,
@@ -11,6 +11,7 @@ import {
 } from './helpers/handleImage';
 
 const TinyMCEditor = () => {
+  const editorRef = useRef(null);
   const maxCharacters = 500;
   const [dirty, setDirty] = useState(false);
   const [length, setLength] = useState(0);
@@ -60,6 +61,33 @@ const TinyMCEditor = () => {
     }
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (editorRef.current) {
+      const editor = editorRef.current.editor;
+      const htmlContent = editor.getContent();
+      const textContent = extractTextFromHtml(htmlContent);
+
+      const interactWithModel = await fetch(
+        'http://localhost:3000/api/customerSupport',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            text: textContent,
+          }),
+        }
+      );
+
+      const json = await interactWithModel.json();
+      console.log(json);
+    }
+  };
+
   useEffect(() => {
     setCharacterLength(length);
     if (length === 0) {
@@ -72,6 +100,7 @@ const TinyMCEditor = () => {
   return (
     <>
       <Editor
+        ref={editorRef}
         placeholder={'Add your comment'}
         apiKey={process.env.TINY_MCE_API_KEY}
         className={``}
@@ -182,6 +211,7 @@ const TinyMCEditor = () => {
       >
         {maxCharacters - length}
       </p>
+      <button onClick={handleSubmit}>Submit</button>
     </>
   );
 };

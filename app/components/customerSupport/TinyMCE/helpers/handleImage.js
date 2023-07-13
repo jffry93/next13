@@ -1,4 +1,4 @@
-import { findClosestP, getDeepestTextNode } from './searchNodes';
+import { findClosestP, getDeepestTextNode } from './handleNodes';
 
 export const handleSeparateImage = (node) => {
   console.log('handleSeparateImage 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥');
