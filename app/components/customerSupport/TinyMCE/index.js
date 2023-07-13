@@ -70,18 +70,15 @@ const TinyMCEditor = () => {
       const htmlContent = editor.getContent();
       const textContent = extractTextFromHtml(htmlContent);
 
-      const interactWithModel = await fetch(
-        'http://localhost:3000/api/customerSupport',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            text: textContent,
-          }),
-        }
-      );
+      const interactWithModel = await fetch('/api/customerSupport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: textContent,
+        }),
+      });
 
       const json = await interactWithModel.json();
       console.log(json);
